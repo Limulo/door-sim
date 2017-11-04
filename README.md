@@ -38,7 +38,7 @@ This folder contains the game project folder for a 3D version of the spring-door
 
 This project has been realized with a custom modification of the [Godot game engine](https://godotengine.org/) v2.1. The custom modifications we made integrates the [libpd](http://libpd.cc/) library in order for Godot to use PureData as its optional game audio engine.
 
-This Godot integartion project is still a work-in-progress. You can find something on [this](https://github.com/Limulo/godot) repository (you will need to clone/download it and compile Godot from the source). For more information about that please feel free to drop us a line to the `info [at] limulo [dot]`. net`.
+This Godot integartion project is still a work-in-progress. You can find something on [this](https://github.com/Limulo/godot) repository (you will need to clone/download it and compile Godot from the source). For more information about that please feel free to drop us a line to the `info [at] limulo [dot] net`.
 
 ## Contacts
-For more additional information about this project feel free to drop us a line to the `info [at] limulo [dot]`. net`. Enjoy!
+For more additional information about this project feel free to drop us a line to the `info [at] limulo [dot] net`. Enjoy!
