@@ -1,12 +1,56 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://door-scene/script/main.gd" type="Script" id=1]
 [ext_resource path="res://door-scene/controls.tscn" type="PackedScene" id=2]
-[ext_resource path="res://door-scene/script/door.gd" type="Script" id=3]
-[ext_resource path="res://door-scene/models/door.msh" type="Mesh" id=4]
-[ext_resource path="res://door-scene/skybox/sky.cube" type="CubeMap" id=5]
-[ext_resource path="res://door-scene/floor.tscn" type="PackedScene" id=6]
-[ext_resource path="res://door-scene/script/pdplayer.gd" type="Script" id=7]
+[ext_resource path="res://door-scene/models/frame.msh" type="Mesh" id=3]
+[ext_resource path="res://door-scene/textures/door_diffuse.tex" type="Texture" id=4]
+[ext_resource path="res://door-scene/textures/door_normal.tex" type="Texture" id=5]
+[ext_resource path="res://door-scene/textures/door_specular.tex" type="Texture" id=6]
+[ext_resource path="res://door-scene/script/door.gd" type="Script" id=7]
+[ext_resource path="res://door-scene/models/door.msh" type="Mesh" id=8]
+[ext_resource path="res://door-scene/skybox/sky.cube" type="CubeMap" id=9]
+[ext_resource path="res://door-scene/floor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://door-scene/script/pdplayer.gd" type="Script" id=11]
+
+[sub_resource type="FixedMaterial" id=4]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = true
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 4.58617e-41
+fixed_flags/use_alpha = false
+fixed_flags/use_color_array = false
+fixed_flags/use_point_size = false
+fixed_flags/discard_alpha = false
+fixed_flags/use_xy_normalmap = false
+params/diffuse = Color( 1, 1, 1, 1 )
+params/specular = Color( 0, 0, 0, 1 )
+params/emission = Color( 0, 0, 0, 1 )
+params/specular_exp = 40
+params/detail_mix = 1.0
+params/normal_depth = 1
+params/shader = 0
+params/shader_param = 0.5
+params/glow = 0
+params/point_size = 1.0
+uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse = ExtResource( 4 )
+textures/diffuse_tc = 0
+textures/detail_tc = 0
+textures/specular = ExtResource( 6 )
+textures/specular_tc = 0
+textures/emission_tc = 0
+textures/specular_exp_tc = 0
+textures/glow_tc = 0
+textures/normal = ExtResource( 5 )
+textures/normal_tc = 0
+textures/shade_param_tc = 0
 
 [sub_resource type="BoxShape" id=1]
 
@@ -40,12 +84,15 @@ params/shader_param = 0.5
 params/glow = 0
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse = ExtResource( 4 )
 textures/diffuse_tc = 0
 textures/detail_tc = 0
+textures/specular = ExtResource( 6 )
 textures/specular_tc = 0
 textures/emission_tc = 0
 textures/specular_exp_tc = 0
 textures/glow_tc = 0
+textures/normal = ExtResource( 5 )
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
@@ -57,7 +104,7 @@ ambient_light/energy = 0.37
 fxaa/enabled = false
 background/mode = 4
 background/color = Color( 0, 0, 0, 1 )
-background/cubemap = ExtResource( 5 )
+background/cubemap = ExtResource( 9 )
 background/energy = 1.0
 background/scale = 1.153
 background/glow = 0.0
@@ -96,6 +143,7 @@ srgb/enabled = false
 
 [node name="world" type="Spatial"]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
 
@@ -103,8 +151,32 @@ script/script = ExtResource( 1 )
 
 editor/display_folded = true
 
+[node name="frame" type="MeshInstance" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0 )
+visibility/visible = false
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 3 )
+mesh/skeleton = NodePath("..")
+material/0 = SubResource( 4 )
+
 [node name="door" type="RigidBody" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0 )
 input/ray_pickable = true
@@ -131,7 +203,7 @@ velocity/linear = Vector3( 0, 0, 0 )
 velocity/angular = Vector3( 0, 0, 0 )
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 3 )
+script/script = ExtResource( 7 )
 
 [node name="CollisionShape" type="CollisionShape" parent="door"]
 
@@ -141,7 +213,7 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="MeshInstance" type="MeshInstance" parent="door"]
+[node name="door" type="MeshInstance" parent="door"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
@@ -158,10 +230,9 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 4 )
+mesh/mesh = ExtResource( 8 )
 mesh/skeleton = NodePath("..")
 material/0 = null
-material/1 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -208,11 +279,11 @@ operator = 0
 params/radius = 5.29409
 params/attenuation = 1.0
 
-[node name="floor" parent="." instance=ExtResource( 6 )]
+[node name="floor" parent="." instance=ExtResource( 10 )]
 
 [node name="PDPlayer" type="PDPlayer" parent="."]
 
-script/script = ExtResource( 7 )
+script/script = ExtResource( 11 )
 
 [connection signal="button_down" from="controls/Button" to="door" method="_on_Button_button_down"]
 
@@ -222,9 +293,9 @@ script/script = ExtResource( 7 )
 
 [connection signal="value_changed" from="controls/slider_spring" to="." method="_on_slider_spring_value_changed"]
 
-[connection signal="toggled" from="controls/CheckButton" to="." method="_on_CheckButton_toggled"]
-
 [connection signal="toggled" from="controls/CheckButton" to="door" method="_on_CheckButton_toggled"]
+
+[connection signal="toggled" from="controls/CheckButton" to="." method="_on_CheckButton_toggled"]
 
 
 [editable path="controls"]
